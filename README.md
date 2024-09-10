@@ -15,7 +15,7 @@ mostraralle de maneira visual e intuitiva onde e como facer o seu traballo.
 
 Diagrama de uso:
 
-![Diagrama de uso](Fig5.11.png)
+![Arquitectura de comunicacións:](Fig5.11.png)
 
 Este proxecto tamén é válido para usar nun ordenador convencional, só se ten que indicar no programa main.py que non imos usar unha raspberry Pi para a execución.
 
@@ -36,3 +36,9 @@ Este proxecto tamén é válido para usar nun ordenador convencional, só se ten
 ## Cambio no uso do dispositivo
 
 O proxecto pode ser executado nunha Raspberry Pi ou nun ordenador convencional, para iso, no arquivo main.py temos que cambiar o valor de Raspi a True ou a False según necesitemos.
+
+## Licenza
+
+Este proxecto ten licenza baixo a licenza MIT. Isto significa que é libre de usar, modificar e distribuír o código baixo os termos desta licenza, sempre que inclúa o texto orixinal da licenza e os dereitos de autor en calquera copia do software ou partes significativas del.
+
+Para máis detalles, consulta o aequivo [LICENSE](LICENSE) incluido neste repositorio.

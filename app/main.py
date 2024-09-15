@@ -1,12 +1,11 @@
 ctrBlank = False
-raspi = False
+raspi = True
 confianza = 0.82
 imagen_size = 640
 x_max = 0.3
 y_max = 0.4
 estado = 0
 mostrar_flecha = True
-#import threading
 import cv2
 import numpy as np
 import os
@@ -58,7 +57,7 @@ def ejecutar_voz(estado, raspi):
         if not raspi:
             texto_a_voz_en_tiempo_real(texto)
         else:
-            playsound(os.path.join(current_directory, 'Sound', 'estado3.mp3'))#playsound("/home/nicov/Desktop/TFG/estado2.mp3")
+            playsound(os.path.join(current_directory, 'Sound', 'estado2.mp3'))#playsound("/home/nicov/Desktop/TFG/estado2.mp3")
 
 # Función para convertir texto a voz en tempo real
 def texto_a_voz_en_tiempo_real(texto):
@@ -118,7 +117,18 @@ else:
     capture = cv2.VideoCapture(0)
 
 if estado == 0:
+    # Cargar a imaxe de fondo e mostrala con OpenCV
+    background_image_path = os.path.join(current_directory, 'Images', 'principal.jpg')
+    img = cv2.imread(background_image_path)
+    cv2.namedWindow('Background', cv2.WINDOW_NORMAL)
+    cv2.setWindowProperty('Background', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+    cv2.imshow('Background', img)
+    cv2.waitKey(1)  # Actualizar a ventana
     ejecutar_voz(estado, raspi)
+    # Pechar a ventana coa imaxe de fondo
+    cv2.destroyAllWindows()
+    cv2.namedWindow("Detect", cv2.WND_PROP_FULLSCREEN)
+    cv2.setWindowProperty("Detect", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     tiempo_anterior = time.time()
 
 while True:

@@ -1,5 +1,5 @@
-raspi = False
-ctrBlank = True
+raspi = True
+ctrBlank = False
 ctrDetect = False
 confianza = 0.86
 imagen_size = 640

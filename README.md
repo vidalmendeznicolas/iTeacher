@@ -13,7 +13,7 @@ usuario, e co proxector mostraralle ao usuario os seguintes pasos que ten que le
 Deste xeito o usuario non necesitaría a priori que ninguén esté con el xa que o dispositivo
 mostraralle de maneira visual e intuitiva onde e como facer o seu traballo.
 
-Diagrama de uso:
+Arquitectura de comunicacións:
 
 ![Arquitectura de comunicacións:](Fig5.11.png)
 

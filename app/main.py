@@ -1,4 +1,4 @@
-ctrBlank = False
+ctrBlank = True
 raspi = True
 confianza = 0.82
 imagen_size = 640
@@ -33,11 +33,11 @@ cv2.setWindowProperty("Detect", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 last_yolo_time = 0
 yolo_interval = 1  # Procesar solo un frame por segundo
 
-# Función para crear y ejecutar el thread
+# FunciÃ³n para crear y ejecutar el thread
 #def iniciar_thread(estado, raspi):
 #    thread = threading.Thread(target=ejecutar_voz, args=(estado, raspi))
 #    thread.start()
-#    thread.join()  # Esperar a que el thread termine para que se elimine automáticamente
+#    thread.join()  # Esperar a que el thread termine para que se elimine automÃ¡ticamente
 
 def ejecutar_voz(estado, raspi):
     if estado == 0:
@@ -53,13 +53,13 @@ def ejecutar_voz(estado, raspi):
         else:
             playsound(os.path.join(current_directory, 'Sound', 'estado1.mp3'))#playsound("/home/nicov/Desktop/TFG/estado1.mp3")
     if estado == 2:
-        texto = "Por último, en las zonas resaltadas, perfore con la broca del 5, una vez terminado posicione su mano en la zona remarcada para volver a empezar"
+        texto = "Por Ãºltimo, en las zonas resaltadas, perfore con la broca del 5, una vez terminado posicione su mano en la zona remarcada para volver a empezar"
         if not raspi:
             texto_a_voz_en_tiempo_real(texto)
         else:
             playsound(os.path.join(current_directory, 'Sound', 'estado2.mp3'))#playsound("/home/nicov/Desktop/TFG/estado2.mp3")
 
-# Función para convertir texto a voz en tempo real
+# FunciÃ³n para convertir texto a voz en tempo real
 def texto_a_voz_en_tiempo_real(texto):
     if not raspi:
         engine.say(texto)
@@ -92,7 +92,7 @@ if not raspi:
     volume = engine.getProperty('volume')  # Obter o volumen actual
     engine.setProperty('volume', volume + 0.25)  # Axustar o volumen (entre 0.0 e 1.0)
 
-    voice = engine.getProperty('voices')  # Obter as voces dispoñibles
+    voice = engine.getProperty('voices')  # Obter as voces dispoÃ±ibles
     engine.setProperty('voice', voice[0].id)  # Establecer a voz (0 para voz masculina, 1 para voz femenina)
 
 mpManos = mp.solutions.hands
@@ -167,18 +167,18 @@ while True:
         start_timeFecla = time.time()
 
         # Coordenadas da flecha apuntando hacia a esquerda
-        start_point = (region_x_max + 50, region_y_max // 2)  # 50 píxeles a dereita do recadro
-        end_point = (region_x_max + 20, region_y_max // 2)  # 10 píxeles a dereita do recadro
+        start_point = (region_x_max + 50, region_y_max // 2)  # 50 pÃ­xeles a dereita do recadro
+        end_point = (region_x_max + 20, region_y_max // 2)  # 10 pÃ­xeles a dereita do recadro
 
         # Definir puntos de inicio e fin para a flecha debaixo do recadro apuntando cara arriba
         start_point_bottom = (region_x_max // 2, region_y_max + 50)  # Debaixo do recadro
         end_point_bottom = (region_x_max // 2, region_y_max + 20)  # Justo debaixo do recadro
-        # Verificar se pasou un segundo desde a última vez que se alternou a visibilidade
+        # Verificar se pasou un segundo desde a Ãºltima vez que se alternou a visibilidade
         if start_timeFecla - tiempo_anterior >= 1:
             mostrar_flecha = not mostrar_flecha  # Alternar a visibilidad da flecha
             tiempo_anterior = start_timeFecla  # Actualizar o tempo de referencia
 
-        # Debuxar ou borrar a flecha según o estado de `mostrar_flecha`
+        # Debuxar ou borrar a flecha segÃºn o estado de `mostrar_flecha`
         if mostrar_flecha:
             cv2.arrowedLine(result_image, start_point, end_point, (0, 0, 255), 5, tipLength=0.5)
             cv2.arrowedLine(result_image, start_point_bottom, end_point_bottom, (0, 0, 255), 5, tipLength=0.5)
@@ -193,7 +193,7 @@ while True:
             cx = int(handLms.landmark[mpManos.HandLandmark.WRIST].x * width)
             cy = int(handLms.landmark[mpManos.HandLandmark.WRIST].y * height)
 
-            # Comprobar se a man está na rexión superior esquerda
+            # Comprobar se a man estÃ¡ na rexiÃ³n superior esquerda
             if cx < region_x_max and cy < region_y_max:
                 if not hand_detected:
                     start_timeHand = time.time()
@@ -206,7 +206,7 @@ while True:
                     # Convertir a imaxe a escala de grises
                     result_image = cv2.cvtColor(result_image, cv2.COLOR_BGR2GRAY)
 
-                    # Convertir de novo a BGR para poder poñer texto en color
+                    # Convertir de novo a BGR para poder poÃ±er texto en color
                     result_image = cv2.cvtColor(result_image, cv2.COLOR_GRAY2BGR)
 
                     # Definir o texto, fonte, escala e cor
@@ -216,14 +216,14 @@ while True:
                     font_color = (0, 255, 0)  # Cor verde en BGR
                     thickness = 2
 
-                    # Obter o tamaño do texto para centralo
+                    # Obter o tamaÃ±o do texto para centralo
                     text_size = cv2.getTextSize(text, font, font_scale, thickness)[0]
 
                     # Calcular as coordenadas do texto para centralo
                     text_x = (result_image.shape[1] - text_size[0]) // 2
                     text_y = (result_image.shape[0] + text_size[1]) // 2
 
-                    # Poñer o texto na imaxe
+                    # PoÃ±er o texto na imaxe
                     cv2.putText(result_image, text, (text_x, text_y), font, font_scale, font_color, thickness)
                     cv2.imshow("Detect", result_image)
                     cambiar_estado(estado)
@@ -237,24 +237,24 @@ while True:
         hand_detected = False
         start_timeHand = None
 
-    # Debuxar os márxenes da imaxe orixinal na imaxe en branco
+    # Debuxar os mÃ¡rxenes da imaxe orixinal na imaxe en branco
     height, width, _ = frame.shape
-    margin_color = (0, 0, 255)  # Cor vermello para os márxenes
+    margin_color = (0, 0, 255)  # Cor vermello para os mÃ¡rxenes
     thickness = 2
 
-    cv2.line(result_image, (0, 0), (width, 0), margin_color, thickness)  # Línea superior
-    cv2.line(result_image, (0, 0), (0, height), margin_color, thickness)  # Línea esquerda
-    cv2.line(result_image, (0, height - 1), (width, height - 1), margin_color, thickness)  # Línea inferior
-    cv2.line(result_image, (width - 1, 0), (width - 1, height), margin_color, thickness)  # Línea dereita
+    cv2.line(result_image, (0, 0), (width, 0), margin_color, thickness)  # LÃ­nea superior
+    cv2.line(result_image, (0, 0), (0, height), margin_color, thickness)  # LÃ­nea esquerda
+    cv2.line(result_image, (0, height - 1), (width, height - 1), margin_color, thickness)  # LÃ­nea inferior
+    cv2.line(result_image, (width - 1, 0), (width - 1, height), margin_color, thickness)  # LÃ­nea dereita
 
     current_time = time.time()
 
     if estado >= 1:
-        # Solo procesar con YOLO se pasou un segundo desde a última vez, se usamos a Raspi
+        # Solo procesar con YOLO se pasou un segundo desde a Ãºltima vez, se usamos a Raspi
         if raspi:
             if current_time - last_yolo_time >= yolo_interval:
                 resultados = model.predict(frame, imgsz=imagen_size, conf=confianza)
-                last_yolo_time = current_time  # Actualiza o tiempo da última detección
+                last_yolo_time = current_time  # Actualiza o tiempo da Ãºltima detecciÃ³n
         else:
             resultados = model.predict(frame, imgsz=imagen_size, conf=confianza)
 
@@ -270,7 +270,7 @@ while True:
                             #cv2.LINE_AA)
                 print("label:", label)
                 if estado == 1 and "CASA" in label:
-                    # Debuxar o rectángulo do box
+                    # Debuxar o rectÃ¡ngulo do box
                     cv2.rectangle(result_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
                     cv2.putText(result_image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
@@ -279,9 +279,9 @@ while True:
                     cy = (y1 + y2) // 2
 
                     # Debuxar o punto medio
-                    cv2.circle(result_image, (cx, cy), 80, (255, 0, 0), -1)  # Marcado como un círculo azul
+                    cv2.circle(result_image, (cx, cy), 80, (255, 0, 0), -1)  # Marcado como un cÃ­rculo azul
                 if estado == 2 and "PONTE" in label:
-                    # Debuxar o rectángulo do box
+                    # Debuxar o rectÃ¡ngulo do box
                     cv2.rectangle(result_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
                     cv2.putText(result_image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
@@ -290,8 +290,8 @@ while True:
                     cy = (y1 + y2) // 2
 
                     # Debuxar o punto medio
-                    cv2.circle(result_image, (cx, cy), 50, (0, 0, 255), -1)  # Marcado como un círculo rojo
-                    cv2.circle(result_image, (cx, cy), 5, (255, 0, 0), -1)  # Marcado como un círculo azul
+                    cv2.circle(result_image, (cx, cy), 50, (0, 0, 255), -1)  # Marcado como un cÃ­rculo rojo
+                    cv2.circle(result_image, (cx, cy), 5, (255, 0, 0), -1)  # Marcado como un cÃ­rculo azul
 
     cv2.imshow("Detect", result_image)
 

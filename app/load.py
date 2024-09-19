@@ -34,17 +34,17 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 # Crear botones
 button1 = Button(root, text="Run Main", command=lambda: run_script(os.path.join(current_directory, 'main.py')),
                  height=2, width=20, bg='light blue')  # Color azul claro)
-button1.place(x=200, y=200)  # Posicionar el botón 'Run Main' en (x=50, y=100)
+button1.place(x=150, y=450)  # Posicionar el botón 'Run Main' en (x=50, y=100)
 #button1.pack(side='left', padx=10, pady=20, fill='both', expand=False)
 
 button2 = Button(root, text="Run Calibration", command=lambda: run_script(os.path.join(current_directory, 'calibration.py')),
                  height=2, width=20, bg='light green')  # Color verde claro)
-button2.place(x=200, y=300)
+button2.place(x=150, y=550)
 #button2.pack(side='left', padx=10, pady=20, fill='both', expand=False)
 
 button3 = Button(root, text="Exit", command=root.destroy,
                  height=2, width=20, bg='salmon')  # Color salmón
-button3.place(x=200, y=400)
+button3.place(x=150, y=650)
 #button3.pack(side='left', padx=10, pady=20, fill='both', expand=False)
 
 # Iniciar el bucle principal de Tkinter

@@ -1,5 +1,5 @@
 raspi = True
-ctrBlank = True
+ctrBlank = False
 ctrDetect = False
 confianza = 0.86
 imagen_size = 640
@@ -61,6 +61,8 @@ mpDibujar = mp.solutions.drawing_utils
 
 start_time = None
 hand_detected = False
+hand_detected_blanco = False
+
 
 if raspi:
     model = YOLO(pathLinux)
@@ -99,20 +101,20 @@ while True:
     region_x_max = int(width * 0.3)  # 30% do ancho desde a esquerda
     region_y_max = int(height * 0.4)  # 40% da altura desde a parte superior
 
-    # Calcular cantos rectÃ¡ngulos caben en cada direcciÃ³n
+    # Calcular cantos rectángulos caben en cada dirección
     num_x = width // region_x_max
     num_y = height // region_y_max
 
-    # Debuxar os rectÃ¡ngulos en todas as posiciÃ³ns
+    # Debuxar os rectángulos en todas as posicións
     for i in range(num_x + 1):  # +1 para cubrir o caso donde non chega completamente a imaxe
         for j in range(num_y + 1):
             # Calcular as coordenadas x e y do recadro
             x_start = i * region_x_max
             y_start = j * region_y_max
-            x_end = min(x_start + region_x_max, width)  # Asegurarse de non pasar os lÃ­mites da imaxe
+            x_end = min(x_start + region_x_max, width)  # Asegurarse de non pasar os límites da imaxe
             y_end = min(y_start + region_y_max, height)
 
-            # Debuxar o rectÃ¡ngulo en result_image
+            # Debuxar o rectángulo en result_image
             cv2.rectangle(result_image, (x_start, y_start), (x_end, y_end), (0, 255, 0), 2)
 
     if resultado.multi_hand_landmarks:
@@ -121,7 +123,7 @@ while True:
             cx = int(handLms.landmark[mpManos.HandLandmark.WRIST].x * width)
             cy = int(handLms.landmark[mpManos.HandLandmark.WRIST].y * height)
 
-            # Comprobar se a man estÃ¡ na rexiÃ³n superior esquerda
+            # Comprobar se a man está na rexión superior esquerda
             if cx < region_x_max and cy < region_y_max:
                 if not hand_detected:
                     start_timeHand = time.time()
@@ -143,14 +145,34 @@ while True:
                         playsound(pathSonLinux)
 
                 mpDibujar.draw_landmarks(result_image, handLms, mpManos.HAND_CONNECTIONS)
+
+            # Comprobar si la mano está en la región inferior izquierda
+            elif cx < region_x_max and cy > (height - region_y_max):
+                if not hand_detected_blanco:
+                    start_timeHand_blanco = time.time()
+                    hand_detected_blanco = True
+                elif time.time() - start_timeHand_blanco >= 3:
+                    cv2.putText(result_image, "MANO DETECTADA EN INFERIOR IZQUIERDA", (50, height - 50),
+                                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2,
+                                cv2.LINE_AA)
+                    # Cambiar el valor de CtrBlanck
+                    ctrBlank = not ctrBlank
+                    time.sleep(1)
+
+                mpDibujar.draw_landmarks(result_image, handLms, mpManos.HAND_CONNECTIONS)
+
             else:
                 hand_detected = False
+                hand_detected_blanco = False
                 start_timeHand = None
+                start_timeHand_blanco = None
     else:
         hand_detected = False
+        hand_detected_blanco = False
         start_timeHand = None
+        start_timeHand_blanco = None
 
-    # Debuxar os mÃ¡rxenes da imaxe orixinal na imaxe en branco
+        # Debuxar os mÃ¡rxenes da imaxe orixinal na imaxe en branco
     height, width, _ = frame.shape
     margin_color = (0, 0, 255)  # Color vermello para os mÃ¡rxenes
     thickness = 2

@@ -3,6 +3,7 @@ from tkinter import PhotoImage, Button
 import subprocess
 import os
 import sys
+Raspi = True
 
 current_directory = os.path.dirname(__file__)
 
@@ -31,20 +32,27 @@ background_image = PhotoImage(file=pathImage)
 background_label = tk.Label(root, image=background_image)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
+if Raspi:
+    xx = 250
+    yy = 450
+else:
+    xx = 150
+    yy = 450
+
 # Crear botones
 button1 = Button(root, text="Run Main", command=lambda: run_script(os.path.join(current_directory, 'main.py')),
                  height=2, width=20, bg='light blue')  # Color azul claro)
-button1.place(x=150, y=450)  # Posicionar el botón 'Run Main' en (x=50, y=100)
+button1.place(x=xx, y=yy)  # Posicionar el botón 'Run Main' en (x=50, y=100)
 #button1.pack(side='left', padx=10, pady=20, fill='both', expand=False)
 
 button2 = Button(root, text="Run Calibration", command=lambda: run_script(os.path.join(current_directory, 'calibration.py')),
                  height=2, width=20, bg='light green')  # Color verde claro)
-button2.place(x=150, y=550)
+button2.place(x=xx, y=yy + 100)
 #button2.pack(side='left', padx=10, pady=20, fill='both', expand=False)
 
 button3 = Button(root, text="Exit", command=root.destroy,
                  height=2, width=20, bg='salmon')  # Color salmón
-button3.place(x=150, y=650)
+button3.place(x=xx, y=yy + 200)
 #button3.pack(side='left', padx=10, pady=20, fill='both', expand=False)
 
 # Iniciar el bucle principal de Tkinter

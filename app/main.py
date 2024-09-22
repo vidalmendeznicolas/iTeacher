@@ -21,9 +21,9 @@ else:
 #import tkinter as tk
 #from tkinter import PhotoImage, Label
 current_directory = os.path.dirname(__file__)
-pathLinux = os.path.join(current_directory, 'Model', 'TFGv8.pt') #"/home/nicov/Desktop/TFG/TFGV8.pt"
-pathSonLinux = os.path.join(current_directory, 'Sound', 'mano_detectada.mp3')#"/home/nicov/Desktop/TFG/mano_detectada.mp3"
-pathWindows = os.path.join(current_directory, 'Model', 'TFGv8.pt')#"C:\\Users\\nicov\\Desktop\\UDC\\TFG\\TFGv8.pt"
+pathLinux = os.path.join(current_directory, 'Model', 'TFGv8.pt') 
+pathSonLinux = os.path.join(current_directory, 'Sound', 'mano_detectada.mp3')
+pathWindows = os.path.join(current_directory, 'Model', 'TFGv8.pt')
 
 
 cv2.namedWindow("Detect", cv2.WND_PROP_FULLSCREEN)
@@ -45,19 +45,19 @@ def ejecutar_voz(estado, raspi):
         if not raspi:
             texto_a_voz_en_tiempo_real(texto)
         else:
-            playsound(os.path.join(current_directory, 'Sound', 'estado0.mp3')) #playsound("/home/nicov/Desktop/TFG/estado0.mp3")
+            playsound(os.path.join(current_directory, 'Sound', 'estado0.mp3'))
     if estado == 1:
         texto = "Coloque el pegamento en las zonas remarcadas, una vez terminado, vuelva a posicionar su mano en la zona remarcada para continuar"
         if not raspi:
             texto_a_voz_en_tiempo_real(texto)
         else:
-            playsound(os.path.join(current_directory, 'Sound', 'estado1.mp3'))#playsound("/home/nicov/Desktop/TFG/estado1.mp3")
+            playsound(os.path.join(current_directory, 'Sound', 'estado1.mp3'))
     if estado == 2:
         texto = "Por Ãºltimo, en las zonas resaltadas, perfore con la broca del 5, una vez terminado posicione su mano en la zona remarcada para volver a empezar"
         if not raspi:
             texto_a_voz_en_tiempo_real(texto)
         else:
-            playsound(os.path.join(current_directory, 'Sound', 'estado2.mp3'))#playsound("/home/nicov/Desktop/TFG/estado2.mp3")
+            playsound(os.path.join(current_directory, 'Sound', 'estado2.mp3'))
 
 # FunciÃ³n para convertir texto a voz en tempo real
 def texto_a_voz_en_tiempo_real(texto):

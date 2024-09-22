@@ -9,7 +9,7 @@ current_directory = os.path.dirname(__file__)
 def run_script(script_path):
     # Cerrar la ventana actual
     root.destroy()
-    # Ejecutar el script de Python con la ruta completa
+    # Ejecutar el script de Python con la ruta completa!!
     subprocess.Popen([sys.executable, script_path])
 
 # Crear la ventana principal
